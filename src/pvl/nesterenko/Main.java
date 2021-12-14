@@ -5,57 +5,62 @@ import java.sql.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Main {
+public class Main
+{
 
     public static void main(String[] args)
     {
-        LinkedList<String> list1 = new LinkedList<String>();
+        Thread thread1 = new Thread(runnable1);
+        thread1.start();
 
-        list1.add("String1");
-        list1.add("String2");
-        list1.add("String3");
-
-        int idx = list1.indexOf("String2");
-
-        System.out.println(idx);
-
-        for(int n=0; n<list1.size(); n++)
-        {
-            System.out.println( list1.get(n) );
-        }
-
-        list1.remove(1);
-        System.out.println( "" );
-
-        for(int n=0; n<list1.size(); n++)
-        {
-            System.out.println( list1.get(n) );
-        }
-
-        //--------------------------------------------------
-
-        ArrayList<String> list2 = new ArrayList<String>();
-
-        list2.add("String1");
-        list2.add("String2");
-        list2.add("String3");
-
-        int idx2 = list2.indexOf("String2");
-
-        System.out.println(idx2);
-
-        for(int n=0; n<list2.size(); n++)
-        {
-            System.out.println( list2.get(n) );
-        }
-
-        list2.remove(1);
-        System.out.println( "   " );
-
-        for(int n=0; n<list2.size(); n++)
-        {
-            System.out.println( list2.get(n) );
-        }
-
+        Thread thread2 = new Thread(runnable2);
+        thread2.start();
     }
+
+    //----------------------------------------------------------
+
+    public static Runnable runnable1 = new Runnable()
+    {
+
+        int Time = 0;
+
+        public void run()
+        {
+            while(true)
+            {
+                try
+                {
+                    Time++;
+                    System.out.println(Time);
+                    Thread.sleep(1000);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
+
+    //-----------------------------------------------------
+
+    public static Runnable runnable2 = new Runnable()
+    {
+
+        public void run()
+        {
+            while(true)
+            {
+                try
+                {
+                    System.out.println("Thread 2");
+                    Thread.sleep(5000);
+                }
+                catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    };
 }
+
+
